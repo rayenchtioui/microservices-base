@@ -1,16 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+  labels:
+    app: client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+          image: client:latest
+          ports:
+            - containerPort: 8002
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: "512Mi"
+            requests:
+              cpu: "0.1"
+              memory: "256Mi"
+---
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   name: client-build
 spec:
   source:
+    type: Git
     git:
       uri: https://github.com/rayenchtioui/microservices-base
     contextDir: services/client
   strategy:
+    type: DockerFile
     dockerStrategy:
-      dockerfilePath: services/client/DockerFile
+      dockerfilePath: DockerFile
   output:
     to:
       kind: ImageStreamTag
       name: client:latest
+  ports:
+    - containerPort: 8002
