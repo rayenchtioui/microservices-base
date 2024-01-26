@@ -1,0 +1,19 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: client-build
+spec:
+  source:
+    git:
+      uri: https://github.com/rayenchtioui/microservices-base
+    images:
+      paths:
+      - client
+    contextDir: services/client
+  strategy:
+    dockerStrategy:
+      dockerfilePath: services/client/DockerFile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: client:latest

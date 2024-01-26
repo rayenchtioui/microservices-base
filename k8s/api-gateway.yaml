@@ -1,0 +1,19 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: api-gateway-build
+spec:
+  source:
+    git:
+      uri: https://github.com/rayenchtioui/microservices-base
+    images:
+      paths:
+      - api-gateway
+    contextDir: api-gateway
+  strategy:
+    dockerStrategy:
+      dockerfilePath: DockerFile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: api-gateway:latest
