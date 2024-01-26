@@ -6,9 +6,6 @@ spec:
   source:
     git:
       uri: https://github.com/rayenchtioui/microservices-base
-    images:
-      paths:
-      - client
     contextDir: services/client
   strategy:
     dockerStrategy:
