@@ -7,9 +7,9 @@ ENV DB=''
 # PORT
 ENV PORT=8000
 
-ENV USER_SERVICE_URL='http://localhost:8001'
-ENV CLIENT_SERVICE_URL='http://localhost:8002'
-ENV PRODUCT_SERVICE_URL='http://localhost:8003'
+ENV CLIENT_SERVICE_URL='http://client:8001'
+ENV PRODUCT_SERVICE_URL='http://product:8002'
+ENV USER_SERVICE_URL='http://user:8003'
 
 WORKDIR /usr/src/app
 
