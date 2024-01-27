@@ -14,7 +14,7 @@ app.use('/client', proxy(config.CLIENT_SERVICE_URL));
 app.use('/product', proxy(config.PRODUCT_SERVICE_URL));
 
 app.use('/', (req:Request, res:Response) => {
-    return res.status(200).json({msg: 'No endpoint specified.'});
+    return res.status(200).json({msg: 'No endpoint specified...'});
 })
 
 app.listen(config.PORT, ()=>{
