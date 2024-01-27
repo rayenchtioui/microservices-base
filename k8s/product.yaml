@@ -1,24 +1,24 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
-  name: client-template
+  name: product-template
 objects:
 - kind: ImageStream
   apiVersion: v1
   metadata:
     annotations:
     labels:
-      app: client
-    name: client
+      app: product
+    name: product
   spec:
     lookupPolicy:
       local: false
 - kind: "BuildConfig"
   apiVersion: "v1"
   metadata:
-    name: "client" 
+    name: "product" 
     labels:
-      app: client
+      app: product
   spec:
     runPolicy: "Serial" 
     triggers: 
@@ -37,26 +37,26 @@ objects:
     strategy:
       type: Docker
       dockerStrategy:
-        dockerfilePath: services/client/Dockerfile    
+        dockerfilePath: services/product/Dockerfile       
     output: 
       to:
         kind: "ImageStreamTag"
-        name: "client:latest"
+        name: "product:latest"
 - kind: "DeploymentConfig"
   apiVersion: "v1"
   metadata:
-    name: "client"
+    name: "product"
     labels:
-      app: client
+      app: product
   spec:
     template: 
       metadata:
         labels:
-          name: "client"
-          app: client
+          name: "product"
+          app: product
       spec:
         containers:
-          - name: "client"
+          - name: "product"
             imagePullPolicy: Always
             ports:
               - containerPort: 8080
@@ -72,10 +72,10 @@ objects:
         imageChangeParams:
           automatic: true
           containerNames:
-            - "client"
+            - "product"
           from:
             kind: "ImageStreamTag"
-            name: "client:latest"
+            name: "product:latest"
     strategy: 
       type: "Rolling"
     paused: false 
@@ -85,9 +85,9 @@ objects:
   apiVersion: v1
   metadata:
     annotations:
-    name: client
+    name: product
     labels:
-      app: client
+      app: product
   spec:
     ports:
     - name: 8080-tcp
@@ -95,20 +95,20 @@ objects:
       port: 8080
       targetPort: 8080
     selector:
-      app: client
+      app: product
     type: ClusterIP
     sessionAffinity: None
 - kind: Route
   apiVersion: route.openshift.io/v1
   metadata:
-    name: client
+    name: product
     labels:
-      app: client
+      app: product
     annotations:
   spec:
     to:
       kind: Service
-      name: client
+      name: product
       weight: 100
     port:
       targetPort: 8080-tcp

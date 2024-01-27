@@ -1,24 +1,24 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
-  name: client-template
+  name: email-template
 objects:
 - kind: ImageStream
   apiVersion: v1
   metadata:
     annotations:
     labels:
-      app: client
-    name: client
+      app: email
+    name: email
   spec:
     lookupPolicy:
       local: false
 - kind: "BuildConfig"
   apiVersion: "v1"
   metadata:
-    name: "client" 
+    name: "email" 
     labels:
-      app: client
+      app: email
   spec:
     runPolicy: "Serial" 
     triggers: 
@@ -37,26 +37,26 @@ objects:
     strategy:
       type: Docker
       dockerStrategy:
-        dockerfilePath: services/client/Dockerfile    
+        dockerfilePath: services/email/Dockerfile       
     output: 
       to:
         kind: "ImageStreamTag"
-        name: "client:latest"
+        name: "email:latest"
 - kind: "DeploymentConfig"
   apiVersion: "v1"
   metadata:
-    name: "client"
+    name: "email"
     labels:
-      app: client
+      app: email
   spec:
     template: 
       metadata:
         labels:
-          name: "client"
-          app: client
+          name: "email"
+          app: email
       spec:
         containers:
-          - name: "client"
+          - name: "email"
             imagePullPolicy: Always
             ports:
               - containerPort: 8080
@@ -72,10 +72,10 @@ objects:
         imageChangeParams:
           automatic: true
           containerNames:
-            - "client"
+            - "email"
           from:
             kind: "ImageStreamTag"
-            name: "client:latest"
+            name: "email:latest"
     strategy: 
       type: "Rolling"
     paused: false 
@@ -85,9 +85,9 @@ objects:
   apiVersion: v1
   metadata:
     annotations:
-    name: client
+    name: email
     labels:
-      app: client
+      app: email
   spec:
     ports:
     - name: 8080-tcp
@@ -95,20 +95,20 @@ objects:
       port: 8080
       targetPort: 8080
     selector:
-      app: client
+      app: email
     type: ClusterIP
     sessionAffinity: None
 - kind: Route
   apiVersion: route.openshift.io/v1
   metadata:
-    name: client
+    name: email
     labels:
-      app: client
+      app: email
     annotations:
   spec:
     to:
       kind: Service
-      name: client
+      name: email
       weight: 100
     port:
       targetPort: 8080-tcp
