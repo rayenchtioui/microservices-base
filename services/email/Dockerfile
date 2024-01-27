@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     python3-dev
 
-COPY ./requirements.txt /code/requirements.txt
+COPY ./services/email/requirements.txt /code/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
     pip install --no-cache-dir --upgrade -r /code/requirements.txt
