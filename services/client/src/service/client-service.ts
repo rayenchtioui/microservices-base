@@ -1,3 +1,4 @@
+import prisma from '../database/models/Client';
 import ClientRepository from '../database/repository/client-repository';
 import { PublishProductEvent, PublishUserEvent } from '../util';
 
@@ -9,11 +10,6 @@ class ClientService {
         this.repository = new ClientRepository();
     }
 
-    GetClientList = async () => {
-        const productList = await this.repository.GetClients();
-        return productList;
-    }
-    
     ReceivePing = async (data:any) => {
         console.log('Your service just got pinged:');
         console.log(data);
