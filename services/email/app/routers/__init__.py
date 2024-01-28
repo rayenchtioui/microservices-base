@@ -1,1 +1,1 @@
-from .user import router
+from .logs import router
