@@ -101,18 +101,3 @@ objects:
       app: user
     type: ClusterIP
     sessionAffinity: None
-- kind: Route
-  apiVersion: route.openshift.io/v1
-  metadata:
-    name: user
-    labels:
-      app: user
-    annotations:
-  spec:
-    to:
-      kind: Service
-      name: user
-      weight: 100
-    port:
-      targetPort: 8080-tcp
-  wildcardPolicy: None  

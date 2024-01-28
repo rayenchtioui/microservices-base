@@ -59,7 +59,7 @@ objects:
           - name: "api-gateway"
             imagePullPolicy: Always
             ports:
-              - containerPort: 8080
+              - containerPort: 8000
                 protocol: "TCP"
             envFrom:
           - secretRef:
@@ -95,8 +95,8 @@ objects:
     ports:
     - name: 8080-tcp
       protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 8000
+      targetPort: 8000
     selector:
       app: api-gateway
     type: ClusterIP

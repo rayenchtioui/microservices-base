@@ -95,24 +95,9 @@ objects:
     ports:
     - name: 8080-tcp
       protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 8001
+      targetPort: 8001
     selector:
       app: client
     type: ClusterIP
     sessionAffinity: None
-- kind: Route
-  apiVersion: route.openshift.io/v1
-  metadata:
-    name: client
-    labels:
-      app: client
-    annotations:
-  spec:
-    to:
-      kind: Service
-      name: client
-      weight: 100
-    port:
-      targetPort: 8080-tcp
-  wildcardPolicy: None  
