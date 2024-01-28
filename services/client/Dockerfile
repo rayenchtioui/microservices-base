@@ -1,5 +1,5 @@
 # services/client/Dockerfile
-FROM node:14
+FROM node:16
 
 WORKDIR /usr/src/app
 
@@ -8,11 +8,8 @@ WORKDIR /usr/src/app
 ENV PORT=8001
 
 # Other services
-ENV PRODUCT_SERVICE_URL='http://localhost:8002'
-ENV USER_SERVICE_URL='http://localhost:8003'
-
-
-ENV DB='postgresql://user:p@postgres:5432/postgres'
+ENV PRODUCT_SERVICE_URL='http://product:8002'
+ENV USER_SERVICE_URL='http://user:8003'
 
 COPY . .
 

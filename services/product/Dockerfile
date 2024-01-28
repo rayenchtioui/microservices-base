@@ -1,5 +1,5 @@
 # services/client/Dockerfile
-FROM node:14
+FROM node:16
 
 # Database
 ENV DB=''
@@ -16,6 +16,8 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN npm install
+
+RUN npx prisma db push
 
 EXPOSE 8002
 

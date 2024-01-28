@@ -29,7 +29,7 @@ const ClientAPI = (app:Express) => {
         }
     });
 
-    app.get('/create', async (req: Request, res: Response, next: NextFunction) => {
+    app.post('/create', async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { name, email } = req.body;
             const wallet = parseFloat(req.body.wallet);
@@ -42,7 +42,7 @@ const ClientAPI = (app:Express) => {
         }
     });
 
-    app.get('/delete/:id', async (req: Request, res: Response, next: NextFunction) => {
+    app.delete('/delete/:id', async (req: Request, res: Response, next: NextFunction) => {
         try {
             const id = parseInt(req.body.id);
             const client = await prisma.client.delete({ where: { id } });
@@ -54,7 +54,7 @@ const ClientAPI = (app:Express) => {
         }
     });
 
-    app.get('/update/:id', async (req: Request, res: Response, next: NextFunction) => {
+    app.put('/update/:id', async (req: Request, res: Response, next: NextFunction) => {
         try {
             const id = parseInt(req.params.id);
             const { name, email } = req.body;
