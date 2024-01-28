@@ -14,7 +14,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(routers.user.router)
+app.include_router(routers.logs.router)
 
 @app.get("/")
 async def read_root():

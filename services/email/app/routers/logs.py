@@ -3,8 +3,8 @@ from .emailUtil import send_email
 
 
 router = APIRouter(
-    prefix="/users",
-    tags=['Users']
+    prefix="/logs",
+    tags=['Logs']
 )
 
 async def send_mail_logs(email: str):
