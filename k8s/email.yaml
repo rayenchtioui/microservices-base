@@ -6,111 +6,99 @@ objects:
 - kind: ImageStream
   apiVersion: v1
   metadata:
-    annotations:
+    name: email
     labels:
       app: email
-    name: email
   spec:
     lookupPolicy:
       local: false
-- kind: "BuildConfig"
-  apiVersion: "v1"
+- kind: BuildConfig
+  apiVersion: v1
   metadata:
-    name: "email" 
+    name: email
     labels:
       app: email
   spec:
-    runPolicy: "Serial" 
-    triggers: 
-      -
-        type: "GitHub"
-        github:
-          secret: "secret101"
-      - type: "Generic"
-        generic:
-          secret: "secret101"
-      -
-        type: "ImageChange"
-    source: 
+    runPolicy: Serial
+    triggers:
+    - type: GitHub
+      github:
+        secret: secret101
+    - type: Generic
+      generic:
+        secret: secret101
+    - type: ImageChange
+    source:
       git:
         uri: "https://github.com/rayenchtioui/microservices-base"
     strategy:
       type: Docker
       dockerStrategy:
-        dockerfilePath: services/email/Dockerfile       
-    output: 
+        dockerfilePath: services/email/Dockerfile
+    output:
       to:
-        kind: "ImageStreamTag"
-        name: "email:latest"
-- kind: "DeploymentConfig"
-  apiVersion: "v1"
+        kind: ImageStreamTag
+        name: email:latest
+- kind: DeploymentConfig
+  apiVersion: v1
   metadata:
-    name: "email"
+    name: email
     labels:
       app: email
   spec:
-    template: 
+    replicas: 1
+    selector:
+      app: email
+    template:
       metadata:
         labels:
-          name: "email"
           app: email
       spec:
         containers:
-          - name: "email"
-            imagePullPolicy: Always
-            ports:
-              - containerPort: 8080
-            envFrom:
-              - secretRef:
-                  name: email-secret
-            env:
-              - name: RUN_ENV
-                value: OpenShift-With-Dockerfile 
-        restartPolicy: Always
-    replicas: 1 
+        - name: email
+          image: email:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8000
+          envFrom:
+          - secretRef:
+              name: email-secret
+          env:
+          - name: RUN_ENV
+            value: OpenShift-With-Dockerfile
     triggers:
-      - type: "ConfigChange" 
-      - type: "ImageChange" 
-        imageChangeParams:
-          automatic: true
-          containerNames:
-            - "email"
-          from:
-            kind: "ImageStreamTag"
-            name: "email:latest"
-    strategy: 
-      type: "Rolling"
-    paused: false 
-    revisionHistoryLimit: 2 
-    minReadySeconds: 0 
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - email
+        from:
+          kind: ImageStreamTag
+          name: email:latest
 - kind: Service
   apiVersion: v1
   metadata:
-    annotations:
     name: email
     labels:
       app: email
   spec:
     ports:
-    - name: 8080-tcp
-      port: 8080
-      targetPort: 8080
+    - name: http
+      port: 8000
+      targetPort: 8000
     selector:
       app: email
     type: ClusterIP
-    sessionAffinity: None
 - kind: Route
   apiVersion: route.openshift.io/v1
   metadata:
     name: email
     labels:
       app: email
-    annotations:
   spec:
     to:
       kind: Service
       name: email
-      weight: 100
     port:
-      targetPort: 8080-tcp
-  wildcardPolicy: None  
+      targetPort: http
