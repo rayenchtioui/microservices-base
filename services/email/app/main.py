@@ -18,4 +18,4 @@ app.include_router(routers.user.router)
 
 @app.get("/")
 async def read_root():
-    return {"Hello": "World"}
+    return {"Helloooo": "World"}
