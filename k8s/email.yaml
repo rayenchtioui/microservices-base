@@ -60,7 +60,9 @@ objects:
             imagePullPolicy: Always
             ports:
               - containerPort: 8080
-                protocol: "TCP"
+            envFrom:
+              - secretRef:
+                  name: email-secret
             env:
               - name: RUN_ENV
                 value: OpenShift-With-Dockerfile 
@@ -91,7 +93,6 @@ objects:
   spec:
     ports:
     - name: 8080-tcp
-      protocol: TCP
       port: 8080
       targetPort: 8080
     selector:

@@ -1,8 +1,6 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter
 from .emailUtil import send_email
-from typing import Optional
-import uuid
-import datetime
+
 
 router = APIRouter(
     prefix="/users",
