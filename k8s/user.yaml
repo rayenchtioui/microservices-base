@@ -61,6 +61,9 @@ objects:
             ports:
               - containerPort: 8080
                 protocol: "TCP"
+            envFrom:
+          - secretRef:
+              name: user-secret
             env:
               - name: RUN_ENV
                 value: OpenShift-With-Dockerfile 
