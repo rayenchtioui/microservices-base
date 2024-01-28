@@ -15,6 +15,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
+RUN sudo chown -R 1000900000:0 "/.npm"
+
 RUN npm install
 
 RUN npx prisma db push

@@ -13,6 +13,8 @@ ENV USER_SERVICE_URL='http://user:8003'
 
 COPY . .
 
+RUN sudo chown -R 1000900000:0 "/.npm"
+
 RUN npm install
 
 RUN npx prisma db push
