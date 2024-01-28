@@ -18,5 +18,6 @@ oc create secret generic email-secret --from-env-file=services/email/.env
 oc new-app --template client-template product-template user-template --build-env=DATABASE_URL="postgresql://$(get_env database-username):$(get_env database-password)@postgresql:5432/$(get_env database-name)?schema=public"\
   --env=DATABASE_URL="postgresql://$(get_env database-username):$(get_env database-password)@postgresql:5432/$(get_env database-name)?schema=public"
 oc new-app --template api-gateway-template email-template 
+
 oc set env --from=secret/email-secret dc/email
 oc set env --from=secret/email-secret dc/email
