@@ -18,6 +18,8 @@ COPY . .
 
 RUN npm install
 
+RUN npx prisma migrate dev
+
 EXPOSE 8001
 
 CMD [ "npm", "run", "start" ]

@@ -42,7 +42,7 @@ const ClientAPI = (app:Express) => {
         }
     });
 
-    app.get('/delete', async (req: Request, res: Response, next: NextFunction) => {
+    app.get('/delete/:id', async (req: Request, res: Response, next: NextFunction) => {
         try {
             const id = parseInt(req.body.id);
             const client = await prisma.client.delete({ where: { id } });
@@ -54,10 +54,10 @@ const ClientAPI = (app:Express) => {
         }
     });
 
-    app.get('/update', async (req: Request, res: Response, next: NextFunction) => {
+    app.get('/update/:id', async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const id = parseInt(req.body.id);
-            const { name, email }: { name: string | undefined, email: string | undefined } = req.body;
+            const id = parseInt(req.params.id);
+            const { name, email } = req.body;
             const wallet: number | undefined = parseFloat(req.body.wallet);
             const client = await prisma.client.update({ where: { id }, data: { wallet, name, email } });
             console.log("Updated client:", client)

@@ -1,11 +1,6 @@
 import dotenv from 'dotenv';
 
-if(process.env.NODE_ENV !== 'production') {
-    const cfg = `./.env.${process.env.NODE_ENV}`;
-    dotenv.config({path: cfg});
-}else {
-    dotenv.config();
-}
+dotenv.config();
 
 export default {
     PORT: process.env.PORT,

@@ -1,8 +1,9 @@
 import { PrismaClient } from '.prisma/client'
+import config from '../../config';
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: `postgresql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@localhost:5432/client?schema=public`,
+      url: `postgresql://${config.DATABASE_USERNAME}:${config.DATABASE_PASSWORD}@localhost:5432/client?schema=public`,
     },
   },
 })
