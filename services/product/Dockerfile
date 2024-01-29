@@ -18,6 +18,8 @@ COPY . .
 
 RUN npm install
 
+RUN npx prisma migrate deploy
+
 RUN npx prisma db push
 
 EXPOSE 8002
