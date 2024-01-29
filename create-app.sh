@@ -17,6 +17,12 @@ oc set env --from secret/postgresql dc/client
 oc new-app https://github.com/rayenchtioui/microservices-base  --as-deployment-config=true --build-env=DATABASE_URL="postgresql://$(get_env database-username):$(get_env database-password)@postgresql:5432/$(get_env database-name)?schema=public" --env=DATABASE_URL="postgresql://$(get_env database-username):$(get_env database-password)@postgresql:5432/$(get_env database-name)?schema=public" --name user --context-dir services/user
 oc set env --from secret/postgresql dc/user
 
-oc new-app https://github.com/rayenchtioui/microservices-base  --as-deployment-config=true --build-env=DATABASE_URL="postgresql://$(get_env database-username):$(get_env database-password)@postgresql:5432/$(get_env database-name)?schema=public" --env=DATABASE_URL="postgresql://$(get_env database-username):$(get_env database-password)@postgresql:5432/$(get_env database-name)?schema=public" --name email --context-dir services/email
+oc create -f k8s/email.yaml
+oc new-app --template email-template
+oc create secret generic email-secret --from-env-file=services/email/.env
+oc set env --from=secret/email-secret dc/email
+
+oc create -f k8s/role.yaml
+oc create -f k8s/role_binding.yaml
 
 oc expose svc/api-gateway
