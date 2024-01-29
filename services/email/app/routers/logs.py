@@ -21,7 +21,6 @@ fastapi_endpoint = "http://email-test-email.apps.na46a.prod.ole.redhat.com/sendL
 
 async def monitor_pods():
     print("monitoring pods")
-    await send_mail_logs("chtiouirayyen@gmail.com", "fze")    
     config.load_incluster_config()
     k8s_client = client.ApiClient()
     dyn_client = DynamicClient(k8s_client)
