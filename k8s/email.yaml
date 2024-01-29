@@ -101,4 +101,5 @@ objects:
       kind: Service
       name: email
     port:
-      targetPort: http
+      targetPort: 8000
+      wildcardPolicy: None  
