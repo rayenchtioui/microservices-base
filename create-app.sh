@@ -23,6 +23,6 @@ oc create secret generic email-secret --from-env-file=services/email/.env
 oc set env --from=secret/email-secret dc/email
 
 oc create -f k8s/role.yaml
-oc create -f k8s/role_binding.yaml
+oc create -f k8s/rolebinding.yaml
 
 oc expose svc/api-gateway
