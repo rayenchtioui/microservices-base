@@ -10,7 +10,7 @@ app = FastAPI()
 @app.on_event("startup")
 async def start_monitoring():
     print("here")
-    # asyncio.create_task(periodic_monitoring())
+    asyncio.create_task(periodic_monitoring())
 origins = ["*"]
 
 app.add_middleware(
