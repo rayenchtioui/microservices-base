@@ -23,10 +23,11 @@ env = Environment(
     autoescape=select_autoescape(['html', 'xml'])
 )
 
-async def send_email(subject: str, recipients: List, email: str, additional_props: dict = {}):
+async def send_email(subject: str, recipients: List, email: str, pod_name: str, additional_props: dict = {}):
     template = env.get_template("email_template.html")
     html = template.render(
         name=email,
+        pod_name=pod_name,
         subject=subject,
         **additional_props
     )
