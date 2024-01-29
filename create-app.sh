@@ -4,6 +4,8 @@ get_env() {
 
 oc delete imagestream,buildconfig,deploymentconfig,service,routes {product,user,client,api-gateway,email}
 oc delete template {product,user,client,api-gateway,email}-template
+oc delete rolebinding pod-watcher-rolebinding
+oc delete role pod-watcher-role
 oc delete secret email-secret
 
 oc new-app https://github.com/rayenchtioui/microservices-base  --as-deployment-config=true --build-env=DATABASE_URL="postgresql://$(get_env database-user):$(get_env database-password)@postgresql:5432/$(get_env database-name)?schema=public" --name api-gateway --context-dir api-gateway
