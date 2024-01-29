@@ -7,7 +7,17 @@ const connect = async () => {
         console.log('No database Username found');
         return;
     }
-    // Handle database connection here
+    else {
+        console.log('Database URL: ', dbUrl);
+        // try {
+        //     // Connect to the database
+        //     await prisma.$connect();
+        //     console.log('Database connection established!');
+        // }   catch (error) {
+        //     console.error('Error connecting to the database:', error);
+        // }
+        return;
+    }
 }
 
 export default connect;
