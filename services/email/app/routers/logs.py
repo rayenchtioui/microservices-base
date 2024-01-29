@@ -15,9 +15,6 @@ async def send_mail_logs(email: str,pod_name: str):
     recipients = [email]
     await send_email(subject, recipients, email, pod_name)
 
-fastapi_endpoint = "http://email-test-email.apps.na46a.prod.ole.redhat.com/sendLogs"
-
-
 
 async def monitor_pods():
     print("monitoring pods")
@@ -26,8 +23,8 @@ async def monitor_pods():
     dyn_client = DynamicClient(k8s_client)
     v1_pods = dyn_client.resources.get(api_version='v1', kind='Pod')
     w = watch.Watch()
-
-    for event in w.stream(v1_pods.get, namespace='test-email'):
+    print("v1_pods.get:", v1_pods.get)
+    for event in w.stream(v1_pods.get, namespace='test'):
         pod = event['object']
         if pod.status.phase == "Failed":
             await send_mail_logs("chtiouirayyen@gmail.com", f"Pod {pod.metadata.name} has failed.")

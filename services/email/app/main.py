@@ -3,9 +3,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app import routers
 from app.routers.logs import monitor_pods
+import logging
+
 
 app = FastAPI()
-
+@app.on_event("startup")
+async def start_monitoring():
+    print("here")
+    # asyncio.create_task(periodic_monitoring())
 origins = ["*"]
 
 app.add_middleware(
@@ -25,9 +30,5 @@ async def read_root():
 async def periodic_monitoring():
     while True:
         await monitor_pods()
-        await asyncio.sleep(600) 
+        await asyncio.sleep(100) 
 
-@app.on_event("startup")
-async def start_monitoring():
-    print("here")
-    asyncio.create_task(periodic_monitoring())
