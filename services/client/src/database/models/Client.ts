@@ -3,7 +3,7 @@ import config from '../../config';
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: config.DATABASE_URL,
+      url: `postgresql://${config.DATABASE_USER}:${config.DATABASE_PASSWORD}@postgresql:5432/${config.DATABASE_NAME}?schema=public`
     },
   },
 })
