@@ -20,9 +20,8 @@ app.include_router(routers.logs.router)
 
 @app.get("/")
 async def read_root():
-    return {"Helloooo": "World"}
+    return {"Hello": "World"}
 
 @app.on_event("startup")
 async def start_monitoring():
     print("here")
-    asyncio.create_task(monitor_pods())

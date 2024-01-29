@@ -1,5 +1,5 @@
 # services/client/Dockerfile
-FROM node:16
+FROM node:14
 
 WORKDIR /usr/src/app
 
@@ -12,7 +12,6 @@ ENV PRODUCT_SERVICE_URL='http://product:8002'
 
 COPY . .
 
-RUN sudo chown -R 1000900000:0 "/.npm"
 
 RUN npm install
 
