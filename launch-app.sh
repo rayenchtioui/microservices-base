@@ -6,7 +6,6 @@ oc delete imagestream,buildconfig,deploymentconfig,service,routes {product,user,
 oc delete template {product,user,client,api-gateway,email}-template
 oc delete secret email-secret
 
-
 oc create -f k8s/email.yaml
 oc create -f k8s/user.yaml
 oc create -f k8s/product.yaml
