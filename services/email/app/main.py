@@ -1,16 +1,16 @@
 import asyncio
-from fastapi import FastAPI
+from fastapi import BackgroundTasks, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app import routers
 from app.routers.logs import monitor_pods
-import logging
 
 
 app = FastAPI()
 @app.on_event("startup")
 async def start_monitoring():
     print("here")
-    # asyncio.create_task(periodic_monitoring())
+    BackgroundTasks.add_task(periodic_monitoring)
+    return {"message": "Monitoring started in the background"}
 origins = ["*"]
 
 app.add_middleware(
