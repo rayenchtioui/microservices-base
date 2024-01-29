@@ -14,3 +14,5 @@ export const PublishClientEvent = async (payload:{event:string, data:any}) => {
         console.log(err.toString());
     });
 }
+
+export const equation = (a:number, b:number) => a + b*b
