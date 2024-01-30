@@ -36,4 +36,4 @@ app.include_router(routers.logs.router)
 
 @app.get("/")
 async def read_root():
-    return {"Hello": "World"}
+    return {"Helloooo": "World"}
