@@ -18,7 +18,7 @@ def start_background_loop(loop):
 
 @app.on_event("startup")
 def startup_event():
-    print("Starting monitoring in the background!")
+    print("Starting monitoring in the background.")
     loop = asyncio.new_event_loop()
     threading.Thread(target=start_background_loop, args=(loop,), daemon=True).start()
     asyncio.run_coroutine_threadsafe(periodic_monitoring(), loop)

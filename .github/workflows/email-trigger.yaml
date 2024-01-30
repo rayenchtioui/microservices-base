@@ -1,0 +1,16 @@
+name: Build Email Service on Change
+
+on:
+  push:
+    paths:
+      - 'services/email/**'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Trigger OpenShift Build
+      run: |
+        curl -X POST -H "Content-Type: application/json" -d '{"ref": "${{ github.ref }}"}' 'https://api.na46a.prod.ole.redhat.com:6443/apis/build.openshift.io/v1/namespaces/test/buildconfigs/email/webhooks/secret101/generic'
