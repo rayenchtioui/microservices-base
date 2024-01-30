@@ -68,7 +68,7 @@ objects:
               - name: RUN_ENV
                 value: OpenShift-With-Dockerfile 
         restartPolicy: Always
-    replicas: 1 
+    replicas: 3 
     triggers:
       - type: "ConfigChange" 
       - type: "ImageChange" 
