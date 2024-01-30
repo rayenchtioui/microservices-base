@@ -2,8 +2,7 @@ name: Build Email Service on Change
 
 on:
   push:
-    paths:
-      - 'services/email/**'
+    paths: 'microservices-base/services/email/**'
 
 jobs:
   build:
