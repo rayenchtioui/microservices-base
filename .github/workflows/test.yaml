@@ -20,10 +20,12 @@ jobs:
 
     - name: Test Service 1
       run: |
+        pwd
         cd services/client
         npm install
         npx jest
         cd ..
+        pwd
 
     - name: Test Service 2
       run: |
